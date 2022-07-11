@@ -11,7 +11,7 @@ import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 
 public class CryptoEx {
-	private static String key = "PBKDF2WithHmacSHA1";
+	static String key = "PBKDF2WithHmacSHA1";
 	
 	//암호화
 	public static String encodedText(String originalTXT, String Key) throws Exception{
@@ -41,7 +41,7 @@ public class CryptoEx {
 		return Base64.getEncoder().encodeToString(buffer);
 	}
 	//복호화
-	private static String decodedText(String encTXT, String Key) throws Exception {
+	public static String decodedText(String encTXT, String Key) throws Exception {
 		 Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
 		 ByteBuffer buffer = ByteBuffer.wrap(Base64.getDecoder().decode(encTXT));
 		 
@@ -61,18 +61,4 @@ public class CryptoEx {
 
 	    return new String(decryptedTextBytes);
 	}
-	
-	
-	
-	public static void main(String[] args) throws Exception {		 
-		String testStr = "FINDMYLOSTARK";
-		String encrypted = encodedText(testStr,key).toString();
-		
-		System.out.println("암호화 할 문자열 : " + testStr);
-		System.out.println("암호화 중 ......");
-		System.out.println("암호화 된 문자열 : " +encrypted);
-		String decrypted = decodedText(encrypted, key);
-		System.out.println("복호화 후 문자열 : " + decrypted );
-	}
-
 }
